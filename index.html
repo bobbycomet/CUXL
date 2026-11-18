@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUXL (Comet UX Labs) · Studio tools and the Griffin Linux ecosystem</title>
+<meta name="description" content="CUXL builds focused applications that make hard jobs easier without removing the power behind them. Home of CUXL Studio and Griffin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5f8;--surface:#fff;--ink:#16202c;--mute:#54626f;--line:#d3dae3;--comet:#1c78b0;--griffin:#a8610d;--hero:#e6edf5;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#12171f;--surface:#1a212c;--ink:#e3e9f0;--mute:#9aa7b5;--line:#2c3644;--comet:#6cc0ee;--griffin:#e8aa55;--hero:#0e1218;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:4rem}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--comet)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--comet);outline-offset:3px}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1.5rem}
+p{max-width:62ch;margin:.6rem 0}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:1.5rem;align-items:center;min-height:3.5rem;overflow-x:auto;white-space:nowrap}
+nav b{font-weight:800;font-size:1.15rem;margin-right:auto;letter-spacing:.01em}
+nav a{color:var(--mute);text-decoration:none;font-weight:600;font-size:.95rem}
+nav a:hover{color:var(--ink)}
+.hero{background:var(--hero);border-bottom:1px solid var(--line);overflow:hidden;position:relative}
+.hero .wrap{padding-top:6rem;padding-bottom:6rem;position:relative}
+.hero h1{font-size:clamp(2.6rem,8vw,6rem);font-weight:800;max-width:14ch}
+.hero p.lead{font-size:1.3rem;color:var(--mute);max-width:44ch;margin-top:1.5rem}
+.trail{position:absolute;right:-6rem;top:3rem;width:44rem;height:2px;background:linear-gradient(90deg,transparent,var(--comet));transform:rotate(-24deg);transform-origin:right;opacity:.8;animation:fly 1.6s ease-out both}
+.trail::after{content:"";position:absolute;right:-7px;top:-7px;width:16px;height:16px;border-radius:50%;background:var(--comet);box-shadow:0 0 28px 8px var(--comet)}
+@keyframes fly{from{transform:rotate(-24deg) translateX(-18rem);opacity:0}to{transform:rotate(-24deg);opacity:.8}}
+@media (prefers-reduced-motion:reduce){.trail{animation:none}html{scroll-behavior:auto}}
+.cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+.btn{display:inline-block;padding:.75rem 1.4rem;border-radius:6px;font-weight:600;text-decoration:none;border:2px solid var(--comet)}
+.btn.p{background:var(--comet);color:var(--bg)}
+section{padding:5rem 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800;max-width:20ch}
+.sub{color:var(--mute);font-size:1.15rem}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem}
+@media (max-width:760px){.cols{grid-template-columns:1fr;gap:1.5rem}.hero .wrap{padding-top:4rem;padding-bottom:4rem}}
+.cols h3{font-size:1.2rem}
+.rows{margin-top:2.5rem;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:15rem 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--line)}
+@media (max-width:760px){.row{grid-template-columns:1fr;gap:.5rem}}
+.row h3{font-size:1.6rem}
+.row .meta{color:var(--mute);font-size:.92rem;margin-top:.4rem}
+.row ul,.list{margin:.6rem 0 0;padding-left:1.2rem;color:var(--mute)}
+.row p{margin-top:0}
+.tag{display:inline-block;font-size:.8rem;border:1px solid var(--line);border-radius:99px;padding:0 .7rem;color:var(--mute);margin-top:.5rem}
+#griffin h2,#griffin .row h3{color:var(--griffin)}
+#griffin .row{grid-template-columns:13rem 1fr}
+@media (max-width:760px){#griffin .row{grid-template-columns:1fr}}
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:2rem;margin-top:2.5rem}
+.principles h3{font-size:1.1rem;margin-bottom:.3rem}
+.principles p{margin:0;color:var(--mute);font-size:.98rem}
+.tbl{width:100%;border-collapse:collapse;margin-top:2rem}
+.scroll{overflow-x:auto}
+.tbl th,.tbl td{text-align:left;padding:.7rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:1.05rem}
+.tbl th:first-child,.tbl td:first-child{border-right:1px solid var(--line)}
+.quote{font-size:clamp(1.4rem,3.2vw,2rem);font-weight:600;letter-spacing:-.01em;max-width:30ch;margin-top:2rem}
+footer{padding:3rem 0;color:var(--mute);font-size:.95rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 3rem;justify-content:space-between}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+<b>CUXL</b>
+<a href="#about">About</a><a href="#studio">Studio</a><a href="#griffin">Griffin</a><a href="#kalium">Kalium</a><a href="#philosophy">Philosophy</a><a href="#community">Community</a>
+</div></nav>
+
+<header class="hero"><div class="trail" aria-hidden="true"></div>
+<div class="wrap">
+<h1>Hard jobs, made easier.</h1>
+<p class="lead">CUXL (Comet UX Labs) builds focused applications that make specialized tasks approachable without removing the power behind them.</p>
+<div class="cta"><a class="btn p" href="#studio">Explore CUXL Studio</a><a class="btn" href="#griffin">Explore Griffin</a></div>
+</div></header>
+
+<section id="about"><div class="wrap">
+<h2>Task-specific software with the power left in.</h2>
+<div class="cols">
+<div><h3>CUXL</h3><p>CUXL develops software around task-specific user experiences. Its applications solve particular problems without introducing unnecessary complexity, restrictions, or dependencies.</p><p>It is the organization and the philosophy behind everything on this page, including Kalium, its Linux modding tool.</p></div>
+<div><h3>Two product families</h3><p><strong>CUXL Studio</strong> is a line of node-based visual development environments that generate real, portable output.</p><p><strong>Griffin</strong> is a coordinated ecosystem of Linux desktop tools for configuring, maintaining, and troubleshooting your system.</p></div>
+</div>
+</div></section>
+
+<section id="studio"><div class="wrap">
+<h2>CUXL Studio</h2>
+<p class="sub">Build visually. Own your output. Studio applications share a mature node architecture, compiler concepts, and editor systems, adapted to each job.</p>
+<div class="rows">
+
+<article class="row"><div><h3>StreamHUD Studio</h3><div class="meta">Windows and Linux</div><span class="tag">In active development</span></div>
+<div><p>A node-based environment for creating, designing, animating, and deploying custom streaming overlays: from a webcam border to interactive HUDs, animated alerts, and chat displays.</p>
+<ul>
+<li><strong>Position Stage:</strong> drag, resize, rotate, group, and snap elements on a live view of the compiled overlay.</li>
+<li><strong>Visual assets:</strong> shapes, SVG, images, transparent video, gradients, text, and custom fonts.</li>
+<li><strong>Animation and behavior:</strong> presets, keyframes, counters, countdowns, alert queues, and chat displays.</li>
+<li><strong>Platforms:</strong> Twitch first, with YouTube, Kick, and TikTok planned.</li>
+<li><strong>Custom code, testing, and lessons:</strong> your own HTML, CSS, and JavaScript, an event simulator, a console, and guided onboarding.</li>
+</ul>
+<p>Projects compile to ordinary HTML, CSS, JavaScript, and assets for OBS or any browser source. Once compiled, your overlay does not need Studio running.</p></div></article>
+
+<article class="row"><div><h3>Bot Forge Studio</h3><div class="meta">Linux AppImage · Windows build on Ko-fi<br>Python 3 · discord.py · GPL-3.0</div></div>
+<div><p>A desktop node-driven IDE, compiler, and lifecycle manager for Discord bots. Design behavior with nodes, then generate real, readable, editable code that belongs to you.</p>
+<ul>
+<li><strong>Generated Python projects:</strong> <code>bot.py</code>, <code>cogs/</code>, runtime modules, requirements, and manifests.</li>
+<li><strong>Optional dashboard:</strong> Node.js, Express, and WebSockets for a web-facing interface.</li>
+<li><strong>Extensible:</strong> custom nodes and plugins, including <code>.bsmod</code> packages.</li>
+<li><strong>Deployment:</strong> local and SSH-based remote deployment, service management, project sync, and hot reload.</li>
+</ul>
+<p>The node library grew out of roughly seven to eight real Discord bots. Generated projects run without Bot Forge Studio installed.</p><p><strong>Windows:</strong> a packaged Windows build is available as a convenient purchase on <a href="https://ko-fi.com/s/0f440cdbac" rel="noopener">Ko-fi</a>. The Linux AppImage and the source remain GPL-3.0.</p></div></article>
+
+<article class="row"><div><h3>Conky Studio</h3><div class="meta">Linux · PyQt6 · AppImage<br>No sudo needed for normal use</div></div>
+<div><p>An advanced visual node-based IDE and theme manager for Conky. Build themes without hand-editing configuration files and restarting to check coordinates.</p>
+<ul>
+<li><strong>Position Stage:</strong> arrange theme elements on a live visual workspace.</li>
+<li><strong>98 built-in nodes,</strong> plus custom nodes, API integrations, and community plugins.</li>
+<li><strong>Visual effects:</strong> advanced image effects and holographic-style image changes.</li>
+<li><strong>Runtime Manager:</strong> manage existing Conky themes without rebuilding them in the editor.</li>
+<li><strong>Community:</strong> an extensive wiki and OpenDesktop and Pling integrations.</li>
+</ul></div></article>
+
+</div>
+</div></section>
+
+<section id="griffin"><div class="wrap">
+<h2>Griffin</h2>
+<p class="sub">A better Linux desktop experience. More control, less complexity.</p>
+<p>Griffin is a coordinated tools ecosystem developed under CUXL. It is not a Linux distribution or a desktop environment replacement, and it does not hide Linux from you. Each application has one responsibility, and they share Griffin state where it helps them cooperate.</p>
+<p class="quote">Linux that feels like Windows, but faster, smarter, and actually teaches you.</p>
+
+<div class="rows">
+<article class="row"><div><h3>Griffin Hub</h3><div class="meta">Central management</div></div><div><p>The main interface for configuring the ecosystem: system tuning, hardware, networking, controllers, and gaming. It includes Griffin Play and Game Tweaks. With the release of version 2.0, Process Sentry and Kernel Autotune will also become part of Griffin Hub.</p><ul><li><strong>CPU Hub</strong> and <strong>GPU Hub</strong> for processor and graphics configuration.</li><li><strong>Wi-Fi Hub</strong> for wireless hardware and drivers.</li><li><strong>Controller Hub</strong> for controller management.</li><li><strong>System Tune</strong> for system and gaming performance.</li></ul></div></article>
+
+<article class="row"><div><h3>Grix</h3><div class="meta">System doctor</div></div><div><p>Health checks, hardware and configuration diagnostics, storage and drive checks, and PipeWire diagnostics. Grix explains what is wrong and why it matters, then offers guided fixes you can apply from the interface.</p></div></article>
+
+<article class="row"><div><h3>Fan Hub</h3><div class="meta">Cooling and RGB · standalone</div></div><div><p>Fan speed and fan curves, RGB lighting, AIO liquid cooling, hardware monitoring, and motherboard-specific fan calibration, using liquidctl and OpenRGB where applicable.</p></div></article>
+
+<article class="row"><div><h3>Griffin Updater</h3><div class="meta">Install and update apps</div></div><div><p>Installs and updates AppImages, Debian packages, and downloadable archives from GitHub releases, Gitea releases, direct URLs, and supported APIs. It replaces old versions and cleans up outdated ones. It complements your package manager and does not replace it.</p></div></article>
+
+<article class="row"><div><h3>Appify</h3><div class="meta">Websites as apps</div></div><div><p>Turn websites into desktop applications with their own identity and behavior, without building browser wrappers by hand.</p></div></article>
+
+<article class="row"><div><h3>Kernel Autotune</h3><div class="meta">Performance configuration<br>Joins Griffin Hub in 2.0</div></div><div><p>Kernel-related tuning, ZRAM and Zswap, CPU governors, network options such as BBR where supported, and storage tuning. It accounts for differences between distributions, kernels, and hardware, and shares its tuning state with other Griffin apps.</p></div></article>
+
+<article class="row"><div><h3>Process Sentry</h3><div class="meta">Runs as a system service<br>Joins Griffin Hub in 2.0</div></div><div><p>Uses cgroups to govern background processes and their resource use, so background work does not get in the way of what you are doing.</p></div></article>
+
+<article class="row"><div><h3>GKM</h3><div class="meta">Griffin Kernel Manager</div></div><div><p>Discover, install, and manage supported Linux kernels through a graphical interface. On Ubuntu-based systems it uses Ubuntu Mainline and XanMod sources where supported, with more distributions planned as development progresses.</p><p>GKM manages kernels. It is not a kernel-building environment. It succeeds XKM, which is now in long-term maintenance.</p></div></article>
+
+<article class="row"><div><h3>Griffin Play</h3><div class="meta">Steam, Proton, and launcher support<br>Part of Griffin Hub</div></div><div><p>Finds and fixes common problems that stop Windows games from working through Steam and Proton. It examines your distribution, graphics hardware, Steam libraries, kernel, and compatibility components, then applies supported fixes, using ProtonDB-derived compatibility information. It does not replace Steam or Proton.</p><p><strong>Game Tweaks</strong> is Griffin Play's option for standalone launcher support. It runs on the same technology stack as Kalium, modified for this job, and is also part of Griffin Hub.</p></div></article>
+
+<article class="row"><div><h3>Griffin Persona</h3><div class="meta">Guided setup</div></div><div><p>A guided process for configuring your Linux environment around your preferred workflow, so you do not have to locate every setting yourself.</p></div></article>
+</div>
+
+<h3 style="margin-top:3rem;font-size:1.5rem">How Griffin thinks</h3>
+<div class="principles">
+<div><h3>Make Linux easier, not weaker</h3><p>Graphical interfaces for tasks that are needlessly complicated, with no flexibility removed.</p></div>
+<div><h3>Teach, don't hide</h3><p>Tools explain what they change and why.</p></div>
+<div><h3>Specialized tools</h3><p>Separate applications for separate jobs, each done properly.</p></div>
+<div><h3>Preserve the system</h3><p>The terminal, package managers, services, and config files stay available.</p></div>
+<div><h3>No artificial barriers</h3><p>No advertising, telemetry, bloat, paywalls, premium feature restrictions, or lock-in.</p></div>
+<div><h3>Consistency</h3><p>Shared conventions and system awareness across the ecosystem.</p></div>
+</div>
+</div></section>
+
+<section id="kalium"><div class="wrap">
+<h2>Kalium</h2>
+<p class="sub">Linux modding environment manager for Steam, Proton, and Mod Organizer 2.</p>
+<p>Kalium is a CUXL product. It prepares, configures, and maintains Windows Mod Organizer 2 environments through Steam and Proton: the compatibility layer, Steam integration, Wine prefixes, instance configuration, Nexus downloads, supporting tools, and diagnostics. It does not replace MO2.</p>
+<p class="quote">Kalium prepares the environment. MO2 manages the mods.</p>
+
+<div class="scroll"><table class="tbl"><thead><tr><th>Kalium</th><th>Mod Organizer 2</th></tr></thead><tbody>
+<tr><td>Prepares the Linux environment</td><td>Manages installed mods</td></tr>
+<tr><td>Configures Steam and Proton</td><td>Manages load order</td></tr>
+<tr><td>Creates and maintains prefixes</td><td>Manages profiles</td></tr>
+<tr><td>Handles NXM integration</td><td>Handles mod installation</td></tr>
+<tr><td>Configures supporting tools</td><td>Manages the virtual filesystem</td></tr>
+<tr><td>Provides diagnostics and repair</td><td>Manages modding workflows</td></tr>
+</tbody></table></div>
+
+<div class="cols">
+<div><h3>Environment management</h3>
+<ul class="list"><li>Steam shortcut creation and registration, with Proton and Wine configuration.</li>
+<li>Per-instance prefixes, with multiple independent MO2 instances, even for the same game.</li>
+<li>Native, Flatpak, and Snap Steam, plus Heroic and GOG and Epic game environments.</li>
+<li>Steam libraries on secondary drives.</li>
+<li>Nexus (NXM) links routed to the intended instance.</li>
+<li>Proton 10 and newer; GE-Proton Latest suggested.</li>
+<li>MO2 installation, migration, and repair that preserves instance identity.</li></ul></div>
+<div><h3>Tools and compatibility</h3>
+<ul class="list"><li>Pandora Behaviour Engine, Nemesis, xEdit and SSEEdit, BodySlide and Outfit Studio, and Windows LOOT.</li>
+<li>USVFS 0.5.7.2 support, optional and off by default because of reported freezes and lock-screen issues in some setups.</li>
+<li>SKSE setups need the MO2 launch environment; plain asset mods can work with direct Steam launches.</li>
+<li>Skyrim SE and AE backpatching is tested, including <code>ContentCatalog.txt.bak</code>. Fallout 4, Starfield, Cyberpunk 2077, and The Witcher 3 backpatching is experimental.</li>
+<li>A command-line interface for supported maintenance tasks.</li></ul></div>
+</div>
+
+<p style="margin-top:2rem">Tested against a Skyrim setup of <strong>500 real mods</strong>, not counting Pandora and LOOT, which are tools.</p>
+<p><strong>Distribution:</strong> AppImage, with TAR and ZIP archives as fallbacks for GLIBC compatibility problems. <strong>Built with</strong> Python 3.10+ and PyQt6 for Linux. GPL-3.0 license.</p>
+<p><strong>Roadmap:</strong> more integrated tools in the application hotbar, expanded Pandora integration, xEdit, Outfit Studio and BodySlide integration, and Wabbajack support.</p>
+</div></section>
+
+<section id="philosophy"><div class="wrap">
+<h2>One idea behind every tool.</h2>
+<p class="quote">Make the hard jobs easier without taking away the power to do them properly.</p>
+<div class="principles">
+<div><h3>You own the output</h3><p>Generated overlays and bots are ordinary files and source code that work without our editors running.</p></div>
+<div><h3>Accessible technology</h3><p>Tools extend what you already use, whether Conky, Discord, OBS, Steam, or Linux itself.</p></div>
+<div><h3>Reusable foundations</h3><p>Shared systems let each product focus on its own job, with plugins for the rest.</p></div>
+</div>
+</div></section>
+
+<section id="community"><div class="wrap">
+<h2>Join the community.</h2>
+<p class="sub">Get help, share what you build, and follow development.</p>
+<div class="cta">
+<a class="btn p" href="https://discord.gg/7fEt5W7DPh" rel="noopener">Griffin Linux Discord</a>
+<a class="btn" href="https://discord.gg/cSKAT9B3N3" rel="noopener">CUXL Discord</a>
+<a class="btn" href="https://www.youtube.com/@BobbyComet" rel="noopener">YouTube</a>
+<a class="btn" href="https://bsky.app/profile/bobbycomet.bsky.social" rel="noopener">Bluesky</a>
+<a class="btn" href="https://x.com/bobby_comet" rel="noopener">X (Twitter)</a>
+<a class="btn" href="https://ko-fi.com/s/0f440cdbac" rel="noopener">Bot Forge Studio for Windows on Ko-fi</a>
+</div>
+<h3 style="margin-top:3rem;font-size:1.5rem">Licensing and trademarks</h3>
+<p>Every CUXL and Griffin project is released under the GNU General Public License v3 (GPL-3.0).</p>
+<p>The application names and images are trademarked, and the original code is copyrighted. You are free to make your own edits, provided they follow the terms of the GPL-3.0.</p>
+</div></section>
+
+<footer><div class="wrap">
+<div><strong>CUXL (Comet UX Labs)</strong><br>Build visually. Create freely. Own your output.</div>
+<div>Griffin is developed under CUXL. All projects are GPL-3.0; names and images are trademarked.<br>Features marked planned or in development are not available until released.</div>
+</div></footer>
+</body>
+</html>
